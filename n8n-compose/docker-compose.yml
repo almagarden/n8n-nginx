@@ -11,6 +11,7 @@ services:
       - N8N_PROTOCOL=https
       - N8N_SSL_TERMINATED=true
       - NODE_ENV=production
+      - N8N_COMMUNITY_PACKAGES_ALLOW_TOOL_USAGE=true
       - WEBHOOK_URL=https://${SUBDOMAIN}.${DOMAIN_NAME}/
       - GENERIC_TIMEZONE=${GENERIC_TIMEZONE}
     volumes:
