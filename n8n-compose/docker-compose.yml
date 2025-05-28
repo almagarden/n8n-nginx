@@ -3,6 +3,7 @@ services:
   n8n:
     image: docker.n8n.io/n8nio/n8n
     restart: always
+    user: root
     ports:
       - "5678:5678"
     environment:
@@ -15,6 +16,11 @@ services:
       - WEBHOOK_URL=https://${SUBDOMAIN}.${DOMAIN_NAME}/
       - GENERIC_TIMEZONE=${GENERIC_TIMEZONE}
       - N8N_DEFAULT_BINARY_DATA_MODE=filesystem
+    entrypoint: |
+      /bin/sh -c "
+      apk add --update python3 py3-pip gcc python3-dev musl-dev curl ffmpeg su-exec
+      exec su-exec node n8n start
+      "
     volumes:
       - n8n_data:/home/node/.n8n
       - ./local-files:/files
